@@ -1,7 +1,7 @@
 " Vim syntax file
-" Language:	Rational Test Real Time PTU script
-" Maintainer:	Apurva Shukla <apurva.shukla@gmail.com>
-" Last Change:	2004 Oct 12
+" Language:  Rational Test Real Time PTU script
+" Maintainer:	Péter Kókai<kokaipeter@gmail.com>
+" Last Change:	2012 Aug 29
 
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded
@@ -25,9 +25,10 @@ syn keyword	ptuKeyword	SERVICE
 syn keyword	ptuKeyword	SIMUL
 syn keyword	ptuKeyword	ELSE_SIMUL
 syn keyword	ptuKeyword	TERMINATION
+syn keyword ptuKeyword	STRUCTURE
 syn keyword	ptuKeyword	TEST
 syn keyword	ptuKeyword	BEGIN
-syn keyword	ptuKeyword	COMMENT
+"syn keyword	ptuKeyword	COMMENT	marks as comment the hole section instead highlight only this keyword
 syn keyword	ptuKeyword	DEFINE
 syn keyword	ptuKeyword	STUB
 syn keyword	ptuKeyword	EV
@@ -49,8 +50,9 @@ syn keyword	ptuTodo		contained TODO FIXME XXX
 "Forces the Tester to give a Testing technique
 syn keyword	ptuTodo		nominal 
 
-syn region ptuNativeCode start=/#/ end=/$/ keepend contains=ptuComment, @AdaSyntax
-syn region ptuComment	start="--" end="$" keepend contains=ptuTodo
+syn region ptuNativeCode start=/#/ end=/$/ keepend contains=ptuComment ", @AdaSyntax change here for other languge support
+syn region ptuComment	start="--" end="$" keepend "contains=ptuTodo
+syn region ptuComment	start="COMMENT" end="$" keepend
 
 " Test techniques which are commonly used
 syn match ptuFamily "Functional"
