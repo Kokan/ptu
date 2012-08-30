@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:  Rational Test Real Time PTU script
-" Maintainer:	Péter Kókai<kokaipeter@gmail.com>
-" Last Change:	2012 Aug 29
+" Maintainer:	Péter Kókai <kokaipeter@gmail.com>
+" Last Change:	2012 Aug 30
 
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded
@@ -13,8 +13,6 @@ endif
 
 
 syn case ignore "The PTU Script language is case insensitive
-syn include @AdaSyntax <sfile>:p:h/ada.vim
-
 
 
 " A bunch of C Test Script Language Keywords
@@ -25,10 +23,9 @@ syn keyword	ptuKeyword	SERVICE
 syn keyword	ptuKeyword	SIMUL
 syn keyword	ptuKeyword	ELSE_SIMUL
 syn keyword	ptuKeyword	TERMINATION
-syn keyword ptuKeyword	STRUCTURE
+syn keyword	ptuKeyword	STRUCTURE
 syn keyword	ptuKeyword	TEST
 syn keyword	ptuKeyword	BEGIN
-"syn keyword	ptuKeyword	COMMENT	marks as comment the hole section instead highlight only this keyword
 syn keyword	ptuKeyword	DEFINE
 syn keyword	ptuKeyword	STUB
 syn keyword	ptuKeyword	EV
@@ -50,9 +47,22 @@ syn keyword	ptuTodo		contained TODO FIXME XXX
 "Forces the Tester to give a Testing technique
 syn keyword	ptuTodo		nominal 
 
-syn region ptuNativeCode start=/#/ end=/$/ keepend contains=ptuComment ", @AdaSyntax change here for other languge support
-syn region ptuComment	start="--" end="$" keepend "contains=ptuTodo
+syn match	ptuOperator	"\v\="
+syn match	ptuOperator	"\v\=\>"
+
+syn match	ptuOperator	"\v\+"
+syn match	ptuOperator	"\v\-"
+syn match	ptuOperator	"\v\\"
+syn match	ptuOperator	"\v\*"
+
+"syn region ptuNativeCode start=/#/ end=/$/ keepend 
+syn region ptuComment	start="--" end="$" keepend
 syn region ptuComment	start="COMMENT" end="$" keepend
+syn region ptuComment	start="\/\*" end="\*\/" keepend
+
+"Numbers
+syn	match	ptuNumber	"\v(0x[0-9A-Za-z]+)|([+-]?[0-9]+\.?[0-9]*)"
+
 
 " Test techniques which are commonly used
 syn match ptuFamily "Functional"
@@ -77,6 +87,8 @@ if version >= 508 || !exists("did_ada_syn_inits")
   HiLink adaLabel		Label
   HiLink ptuFamily		Constant
   HiLink ptuNativeCode		Question
+  HiLink ptuNumber		Number
+  HiLink ptuOperator		Operator
 
   delcommand HiLink
 endif
